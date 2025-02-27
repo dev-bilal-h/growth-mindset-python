@@ -6,11 +6,12 @@ import random
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 import io
+import sqlite3
 
 # Set page configuration
 st.set_page_config(
-    page_title="Growth Mindset Challenge",
-    page_icon="🌱",
+    page_title="Growth Mindset",
+    page_icon="💡",
     layout="centered",
 )
 
@@ -66,11 +67,23 @@ page = st.sidebar.radio(
     "Go to",
     [
         "Home",
-        "Boost Your Mindset",
-        "Progress Monitor",
+        "Daily Inspiration",
+        "Daily Progress",
         "Sign Up",
         "Login",
     ],
+)
+
+# Developer Info Section at the Bottom
+st.sidebar.markdown("---")  # Separator line
+st.sidebar.markdown(
+    """
+    ### 🖥️ Developer Info  
+    - 🛠️ **Created by:** Bilal Hassan
+    - 📧 **Get in Touch:** [Send Email](mailto:siddiquibilal882@gmail.com)  
+    - 🌐 **Website:** [My Portfolio](https://portfolio-tailwind-css-bh.vercel.app/)  
+    """,
+    unsafe_allow_html=True,
 )
 
 
@@ -89,23 +102,22 @@ def sign_up(username, password):
     conn.commit()
 
 
-# Home Page
 if page == "Home":
     st.markdown(
-        "<h1 class='animated' style='color: green;'>Welcome to the Growth Mindset Challenge! 🌱</h1>",
+        "<h1 class='animated' style='color: red;'>Step into the Growth Mindset Challenge 💡</h1>",
         unsafe_allow_html=True,
     )
 
     col1, col2 = st.columns([1, 1])
 
-    # Load text first
+    # Content Section
     with col1:
         st.markdown(
             """
         <div class='animated'>
-            <h3>What is a Growth Mindset?</h3>
-            <p>A growth mindset is the belief that your abilities and intelligence can be developed through hard work, perseverance, and learning from mistakes.
-            This concept was popularized by psychologist Carol Dweck. Instead of seeing skills as fixed, it teaches us that every challenge is an opportunity to improve.</p>
+            <h3 style='color: #20C997;'>Understanding a Growth Mindset</h3>
+            <p>A growth mindset is about believing that skills and intelligence can improve with effort, practice, and learning from experiences. 
+            This idea, introduced by psychologist Carol Dweck, encourages us to see challenges as opportunities rather than barriers.</p>
         </div>
         """,
             unsafe_allow_html=True,
@@ -114,11 +126,11 @@ if page == "Home":
     st.markdown(
         """
     <div class='animated'>
-        <h3>Why Adopt a Growth Mindset?</h3>
+        <h3 style='color: #20C997;'>Why Cultivate a Growth Mindset?</h3>
         <ul>
-            <li><b>Embrace Challenges:</b> See obstacles as opportunities to learn.</li>
-            <li><b>Learn from Mistakes:</b> Mistakes are a natural part of learning.</li>
-            <li><b>Persist Through Difficulties:</b> Hard work and persistence lead to growth.</li>
+            <li><b>Face Challenges Positively:</b> Every obstacle is a chance to grow.</li>
+            <li><b>Turn Mistakes into Lessons:</b> Failure is just another step toward success.</li>
+            <li><b>Stay Determined:</b> Hard work and consistency lead to personal development.</li>
         </ul>
     </div>
     """,
@@ -128,11 +140,11 @@ if page == "Home":
     st.markdown(
         """
     <div class='animated'>
-        <h3>How Can You Practice a Growth Mindset?</h3>
+        <h3 style='color: #20C997;'>Ways to Develop a Growth Mindset</h3>
         <ul>
-            <li><b>Set Learning Goals:</b> Focus on skill development rather than just grades.</li>
-            <li><b>Reflect on Your Learning:</b> Learn from both successes and challenges.</li>
-            <li><b>Seek Feedback:</b> Use constructive criticism for self-improvement.</li>
+            <li><b>Set Skill-Based Goals:</b> Aim to improve rather than just achieve.</li>
+            <li><b>Reflect & Adapt:</b> Learn from both victories and setbacks.</li>
+            <li><b>Seek Constructive Feedback:</b> Use advice to enhance your abilities.</li>
         </ul>
     </div>
     """,
@@ -142,31 +154,32 @@ if page == "Home":
     st.markdown(
         """
     <div class='animated'>
-        <p>By adopting a growth mindset, you empower yourself to overcome challenges, innovate, and continuously improve. 
-        Every step, whether forward or backward, is part of the learning process. 
-        Embrace your potential and never stop striving to be better.</p>
+        <p>Embracing a growth mindset helps you break limits, push boundaries, and unlock new possibilities. 
+        Progress is a journey, and every step forward brings you closer to excellence.</p>
     </div>
     """,
         unsafe_allow_html=True,
     )
 
-    # Show spinner and load image separately
+
+    # Image Section
     with col2:
         with st.spinner("Loading image..."):
             time.sleep(1)
             try:
-                image = Image.open("rb_39405.png")
+                image = Image.open("home-img.png")
                 st.image(
                     image,
-                    caption="Embrace the power of growth!",
+                    caption="Step into a mindset of growth!",
                     use_container_width=True,
                 )
             except FileNotFoundError:
-                st.error("Image file not found. Please check the path.")
+                st.error("Image not found. Ensure the correct file path.")
 
 
-# Boost Your Mindset Page
-if page == "Boost Your Mindset":
+
+# Daily Inspiration Page
+if page == "Daily Inspiration":
     # custom CSS to ensure the heading stays visible
     st.markdown(
         """
@@ -188,32 +201,32 @@ if page == "Boost Your Mindset":
     # Add content to the first column
     with col1:
         st.markdown(
-            "<h1 style='color: green;'>🌟 Growth Mindset Booster</h1>",
+            "<h1 style='color: red;'>💡 Daily Inspiration</h1>",
             unsafe_allow_html=True,
         )
 
     # Motivational Quotes
     quotes = [
-        "🌱 Growth begins the moment you step out of your comfort zone!",
-        "💡 Every setback is a setup for a comeback!",
-        "🔥 Keep striving – your dedication will lead to greatness!",
-        "🚀 The journey of improvement starts with a single step!",
-        "🌟 Progress, no matter how small, is still progress!",
+        "🌱 Every challenge is an opportunity to grow!",
+        "💪 Strength comes from consistency!",
+        "🔥 Push forward, success is near!",
+        "🚀 Elevate yourself daily with learning!",
+        "🌟 Small steps lead to big achievements!",
     ]
 
     # Add content to the second column
     with col2:
-        st.subheader("💭 Your Daily Motivation")
+        st.subheader(" Today's Thought 🔥")
         st.info(random.choice(quotes))
 
     # Learning Goal
-    goal = st.text_area("Set Your Learning Goal:")
+    goal = st.text_area("What's your current learning goal?")
 
     # Achieved Goal Date
-    achieved_date = st.date_input("When did you achieve your goal?")
+    achieved_date = st.date_input("Target Completion Date:")
     if achieved_date:
         st.success(
-            f"🎉 Bravo! You reached your goal on **{achieved_date}**. Keep going! 🏆"
+            f"🎯 Keep it up! You're aiming to complete this by **{achieved_date}**. "
         )
 
     # Growth Mindset Tips
@@ -231,88 +244,112 @@ if page == "Boost Your Mindset":
 
     # Feedback on Progress
     feedback = st.selectbox(
-        "How do you feel about your journey?",
-        ["Feeling Amazing!", "Still Working on It", "Need More Motivation"],
+        "How do you feel about your progress?",
+        ["On top of the world!", "Making steady progress", "Need a little push"],
     )
-    st.write(f"💬 **Your Response:** {feedback}")
+    st.write(f"💬 **Your Reflection:** {feedback}")
 
     # Celebration Button
-    celebrate = st.button("🚀 Celebrate Your Effort!")
+    celebrate = st.button("Celebrate Small Wins!")
     if celebrate:
-        st.snow()
-    st.success("Every step you take matters. Keep up the great work! 🎉")
+        st.balloons()
+    st.success("Remember, every step forward is a step toward success! 🚀")
 
     # Function to generate PDF
     def generate_pdf(goal, achieved_date, tips, feedback):
         buffer = io.BytesIO()
         pdf = canvas.Canvas(buffer, pagesize=letter)
-        pdf.setTitle("Growth Mindset Progress")
+        pdf.setTitle("Mindset Growth Tracker")
 
         pdf.setFont("Helvetica-Bold", 16)
-        pdf.drawString(200, 750, "🌟 Growth Mindset Progress 🌟")
+        pdf.drawString(200, 750, "🚀 Personal Growth Progress 🌟")
 
         pdf.setFont("Helvetica", 12)
-        pdf.drawString(100, 700, f"Learning Goal: {goal}")
-        pdf.drawString(100, 670, f"Achieved Date: {achieved_date}")
-        pdf.drawString(100, 640, f"Selected Tip: {tips}")
-        pdf.drawString(100, 610, f"Journey Feedback: {feedback}")
+        pdf.drawString(100, 700, f"Goal: {goal}")
+        pdf.drawString(100, 670, f"Target Date: {achieved_date}")  # Fixed
+        pdf.drawString(100, 640, f"Mindset Tip: {tips}")  # Fixed
+        pdf.drawString(100, 610, f"Self-Reflection: {feedback}")
 
-        pdf.drawString(100, 570, "🎉 Keep pushing forward and stay motivated! 🚀")
+
+        pdf.drawString(100, 570, "💡 Keep pushing forward and embracing growth!")
 
         pdf.save()
         buffer.seek(0)
         return buffer
 
     # Download PDF Button
-    if st.button("📥 Download Your Progress as PDF"):
+    if st.button("📩 Save Your Progress as PDF"):
         if goal and achieved_date:
             pdf_file = generate_pdf(goal, achieved_date, tips, feedback)
             st.download_button(
-                label="📥 Click to Download PDF",
+                label="📥 Download Growth Report",
                 data=pdf_file,
-                file_name="growth_mindset_progress.pdf",
+                file_name="mindset_growth_report.pdf",
                 mime="application/pdf",
             )
         else:
-            st.warning("⚠️ Please fill in all fields before downloading.")
+            st.warning("⚠️ Please provide all details before downloading.")
 
 
-# Progress Monitor
-elif page == "Progress Monitor":
-    st.markdown(
-        "<h1 style='color: green;'>Progress Monitor 📊</h1>",
+# Daily Tracker
+elif page == "Daily Progress":
+    # Custom CSS for Slider
+ st.markdown(
+        "<h1 style='color: red;'>Daily Monitor 📊</h1>",
         unsafe_allow_html=True,
-    )
-    
-    st.write("### Track your daily progress and stay motivated! 🚀")
-    
-    progress = st.slider("📈 How much progress have you made today?", 0, 100, 50)
-    
-    if st.button("💾 Save Progress"):
-        if "user_id" in st.session_state:
-            c.execute(
-                'INSERT INTO progress (user_id, progress, date) VALUES (?, ?, DATE("now"))',
-                (st.session_state["user_id"], progress),
-            )
-            conn.commit()
-            
-            st.success(f"✅ Progress saved successfully: {progress}%")
-            
-            # Display motivational message
-            if progress < 30:
-                st.warning("Keep pushing! 💪 Small steps lead to big achievements.")
-            elif progress < 70:
-                st.info("You're doing great! Stay consistent. ✨")
-            else:
-                st.success("Amazing progress! Keep up the fantastic work! 🎉")
+    )   
+ st.markdown(
+    """
+    <style>
+    /* Move slider labels (0 and 100) downward */
+    .stSlider > div > div > div > div[data-testid="stTickBarMin"], 
+    .stSlider > div > div > div > div[data-testid="stTickBarMax"] {
+        position: relative;
+        top: 10px;  /* Adjust this value to move numbers further down */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+ )
+
+
+ # Slider for Progress
+ progress_value = st.slider("📌 How much did you improve today?", 0, 100, 40)
+
+ # Alternative Visual Progress Bar
+ st.progress(progress_value / 100)
+
+ # Button to Save Progress
+ if st.button("✅ Log Progress"):
+    if "user_id" in st.session_state:
+        c.execute(
+            'INSERT INTO progress (user_id, progress, date) VALUES (?, ?, DATE("now"))',
+            (st.session_state["user_id"], progress_value),
+        )
+        conn.commit()
+
+        st.success(f"🎯 Your progress has been saved: {progress_value}%")
+
+        # Different Motivational Messages
+        if progress_value < 25:
+            st.warning("Small steps lead to big changes. Keep going! 💡")
+        elif progress_value < 60:
+            st.info("You're on the right track! Stay consistent. 🚀")
         else:
-            st.error("🚨 Please log in to save your progress.")
+            st.success("Fantastic work! You're making remarkable progress! 🎊")
+    else:
+        st.error("⚠️ Please log in to record your progress.")
+
+ # Close Database Connection
+ conn.close()
+
+
 
 
 # Sign Up Page
 elif page == "Sign Up":
     st.markdown(
-        "<h1 style='color: green;'>Sign Up</h1>",
+        "<h1 style='color: red;'>Sign Up</h1>",
         unsafe_allow_html=True,
     )
     username = st.text_input("Username")
@@ -325,7 +362,7 @@ elif page == "Sign Up":
 # Login Page
 elif page == "Login":
     st.markdown(
-        "<h1 style='color: green;'>Log in</h1>",
+        "<h1 style='color: red;'>Log in</h1>",
         unsafe_allow_html=True,
     )
     username = st.text_input("Username")
